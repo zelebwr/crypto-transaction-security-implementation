@@ -1,9 +1,4 @@
-def generate_keypair(p: int, q: int, e: int = 65537) -> tuple[tuple[int, int], tuple[int, int]]:
-    """
-    Computes RSA keys from scratch.
-    Returns: ((e, n), (d, n))
-    """
-    pass
+from .math_utils import mod_exp
 
 def encrypt_block(m: int, e: int, n: int) -> int:
     """
@@ -11,7 +6,9 @@ def encrypt_block(m: int, e: int, n: int) -> int:
     c = (m^e) mod n
     using modular exponentiation by squaring
     """
-    pass
+    if m >= n: 
+        raise ValueError(f"Block value m ({m}) must be strictly less than modulus n ({n}).")
+    return mod_exp(m, e, n)
 
 def decrypt_block(c: int, d: int, n: int) -> int:
     """
@@ -19,4 +16,4 @@ def decrypt_block(c: int, d: int, n: int) -> int:
     m = (c^d) mod n
     using modular expnentiation by squaring
     """
-    pass
+    return mod_exp(c, d, n)
